@@ -20,13 +20,12 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Build back Docker image
-        run: docker build --progress=plain -t bobapp-back:ci ./back
+        run: docker build --pull --progress=plain -t bobapp-back:ci ./back
 
       - name: Run back container (smoke test)
         run: |
           docker run -d --rm -p 8081:8080 --name bobapp-back bobapp-back:ci
 
-          # attendre que l'app démarre et réponde sur /api/joke
           for i in {1..30}; do
             if curl -fsS http://localhost:8081/api/joke >/dev/null; then
               echo "Backend is up"
@@ -36,5 +35,5 @@ jobs:
           done
 
           echo "Backend did not start in time"
-          docker logs bobapp-back
+          docker logs bobapp-back || true
           exit 1
