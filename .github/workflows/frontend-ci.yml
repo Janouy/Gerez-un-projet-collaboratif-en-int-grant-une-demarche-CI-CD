@@ -14,6 +14,9 @@ on:
 jobs:
   docker:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: front
 
     steps:
       - name: Checkout repository
