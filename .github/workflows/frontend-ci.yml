@@ -1,0 +1,29 @@
+name: Frontend - BobApp
+
+on:
+  push:
+    branches: [ "main", "develop" ]
+    paths:
+      - "front/**"
+      - ".github/workflows/frontend-ci.yml"
+  pull_request:
+    branches: [ "main", "develop" ]
+    paths:
+      - "front/**"
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build front Docker image
+        run: docker build --progress=plain -t bobapp-front:ci ./front
+
+      - name: Run front container (smoke test)
+        run: |
+          docker run -d --rm -p 8080:80 --name bobapp-front bobapp-front:ci
+          sleep 3
+          curl -f http://localhost:8080/
