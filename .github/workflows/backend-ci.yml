@@ -27,9 +27,16 @@ jobs:
           java-version: "11"
           cache: maven
 
-      - name: Run tests (Maven)
+      - name: Run tests + Jacoco (Maven)
         working-directory: back
         run: mvn -B test
+
+      - name: Upload JaCoCo report
+        uses: actions/upload-artifact@v4
+        with:
+          name: backend-jacoco-report
+          path: back/target/site/jacoco/**
+      
 
       - name: Build back Docker image
         run: docker build --pull --progress=plain -t bobapp-back:ci ./back
