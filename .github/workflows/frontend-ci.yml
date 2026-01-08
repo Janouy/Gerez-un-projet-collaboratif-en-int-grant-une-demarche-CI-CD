@@ -32,8 +32,14 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run tests (Karma)
-        run: npm test -- --watch=false --browsers=ChromeHeadless
+      - name: Run tests + coverage (Karma)
+        run: npm test -- --watch=false --browsers=ChromeHeadless --code-coverage
+
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontend-coverage
+          path: front/coverage/**
 
       - name: Build front Docker image
         run: docker build --progress=plain -t bobapp-front:ci .
