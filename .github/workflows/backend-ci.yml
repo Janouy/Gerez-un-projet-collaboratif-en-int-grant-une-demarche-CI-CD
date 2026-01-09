@@ -37,6 +37,12 @@ jobs:
           name: backend-jacoco-report
           path: back/target/site/jacoco/**
       
+      - name: SonarQube Cloud scan (backend)
+        uses: SonarSource/sonarqube-scan-action@v6
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          projectBaseDir: back
 
       - name: Build back Docker image
         run: docker build --pull --progress=plain -t bobapp-back:ci ./back
