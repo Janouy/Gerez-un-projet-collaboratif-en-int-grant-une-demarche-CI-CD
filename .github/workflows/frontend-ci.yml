@@ -1,0 +1,61 @@
+name: Frontend - BobApp
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "main", "develop" ]
+    paths:
+      - "front/**"
+      - ".github/workflows/frontend-ci.yml"
+  pull_request:
+    branches: [ "main", "develop" ]
+    paths:
+      - "front/**"
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: front
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '16'
+          cache: npm
+          cache-dependency-path: front/package-lock.json
+       
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests + coverage (Karma)
+        run: npm test -- --watch=false --browsers=ChromeHeadless --code-coverage
+
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontend-coverage
+          path: front/coverage/**
+
+      - name: SonarQube Cloud scan
+        uses: SonarSource/sonarqube-scan-action@v6
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          projectBaseDir: front
+
+      - name: Build front Docker image
+        run: docker build --progress=plain -t bobapp-front:ci .
+
+      - name: Run front container (smoke test)
+        run: |
+          docker run -d --rm -p 8080:80 --name bobapp-front bobapp-front:ci
+          sleep 3
+          curl -f http://localhost:8080/
