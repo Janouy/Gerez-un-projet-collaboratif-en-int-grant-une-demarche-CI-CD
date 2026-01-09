@@ -44,6 +44,14 @@ jobs:
           name: frontend-coverage
           path: coverage/**
 
+      - name: Debug coverage files
+        run: |
+          echo "== coverage folder =="
+          ls -la coverage || true
+          echo "== lcov files =="
+          find coverage -maxdepth 6 -type f -name "lcov.info" -print -exec head -n 5 {} \; -exec tail -n 5 {} \; -exec wc -l {} \; || true
+
+
       - name: SonarQube Cloud scan
         uses: SonarSource/sonarqube-scan-action@v6
         env:
