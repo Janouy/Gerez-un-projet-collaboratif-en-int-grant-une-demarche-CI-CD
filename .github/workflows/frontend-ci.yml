@@ -44,12 +44,6 @@ jobs:
           name: frontend-coverage
           path: coverage/**
 
-      - name: Debug coverage files
-        run: |
-          echo "== coverage tree =="
-          find coverage -maxdepth 4 -type f -print || true
-
-
       - name: SonarQube Cloud scan
         uses: SonarSource/sonarqube-scan-action@v6
         env:
