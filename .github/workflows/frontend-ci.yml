@@ -3,12 +3,12 @@ name: Frontend - BobApp
 on:
   workflow_dispatch:
   push:
-    branches: [ "main", "develop" ]
+    branches: "main"
     paths:
       - "front/**"
       - ".github/workflows/frontend-ci.yml"
   pull_request:
-    branches: [ "main", "develop" ]
+    branches: "main"
     paths:
       - "front/**"
 
@@ -44,21 +44,16 @@ jobs:
           name: frontend-coverage
           path: front/coverage/**
 
-
-      - name: Locate lcov.info
-        run: |
-          echo "=== coverage tree (top) ==="
-          ls -la coverage || true
-          echo "=== find lcov.info ==="
-          find coverage -type f -name "lcov.info" -print || true
-
-
       - name: SonarQube Cloud scan
         uses: SonarSource/sonarqube-scan-action@v6
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           projectBaseDir: front
+          args: >
+            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
+            -Dsonar.typescript.lcov.reportPaths=coverage/lcov.info
+            -Dsonar.coverage.exclusions=src/main.ts,src/test.ts,src/environments/**/*
 
       - name: Build front Docker image
         run: docker build --progress=plain -t bobapp-front:ci .
