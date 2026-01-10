@@ -1,11 +1,14 @@
 name: Backend - BobApp
 
 on:
+  workflow_dispatch:
   push:
     branches: "main"
   pull_request:
     branches: "main"
-    workflow_dispatch:
+    paths:
+      - "back/**"
+      - ".github/workflows/backend-ci.yml"
 
 jobs:
   docker:
