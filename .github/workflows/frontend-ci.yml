@@ -4,13 +4,11 @@ on:
   workflow_dispatch:
   push:
     branches: "main"
-    paths:
-      - "front/**"
-      - ".github/workflows/frontend-ci.yml"
   pull_request:
     branches: "main"
     paths:
       - "front/**"
+      - ".github/workflows/frontend-ci.yml"
 
 jobs:
   docker:
