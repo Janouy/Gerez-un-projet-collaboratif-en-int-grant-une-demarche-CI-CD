@@ -10,7 +10,7 @@ Go inside folder the front folder:
 
 > cd front
 
-Install dependencies:
+Install dependencies :
 
 > npm install
 
