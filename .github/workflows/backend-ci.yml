@@ -63,6 +63,7 @@ jobs:
             fi
             sleep 2
           done
+          
           echo "Backend did not start in time"
           docker logs bobapp-back || true
           exit 1

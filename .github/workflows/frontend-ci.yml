@@ -12,7 +12,6 @@ on:
     paths:
       - "front/**"
 
-
 jobs:
   docker:
     name: Frontend CI
