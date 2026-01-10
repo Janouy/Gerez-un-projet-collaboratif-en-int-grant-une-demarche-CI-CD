@@ -3,12 +3,12 @@ name: Frontend - BobApp
 on:
   workflow_dispatch:
   push:
-    branches: [ "main", "develop" ]
+    branches: "main"
     paths:
       - "front/**"
       - ".github/workflows/frontend-ci.yml"
   pull_request:
-    branches: [ "main", "develop" ]
+    branches: "main"
     paths:
       - "front/**"
 
