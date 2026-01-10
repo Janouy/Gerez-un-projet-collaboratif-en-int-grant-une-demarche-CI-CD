@@ -12,6 +12,7 @@ on:
     paths:
       - "front/**"
 
+
 jobs:
   docker:
     runs-on: ubuntu-latest
