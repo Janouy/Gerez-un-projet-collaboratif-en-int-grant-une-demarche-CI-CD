@@ -39,13 +39,6 @@ jobs:
           name: backend-jacoco-report
           path: back/target/site/jacoco/**
 
-      - name: Verify jacoco.xml
-        working-directory: back
-        run: |
-          ls -lah target/site/jacoco
-          head -n 5 target/site/jacoco/jacoco.xml
-
-      
       - name: SonarQube Cloud scan (backend)
         uses: SonarSource/sonarqube-scan-action@v6
         env:
