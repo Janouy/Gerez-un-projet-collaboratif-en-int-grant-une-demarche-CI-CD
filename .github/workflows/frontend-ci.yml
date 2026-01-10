@@ -44,12 +44,22 @@ jobs:
           name: frontend-coverage
           path: front/coverage/**
 
+      - name: Verify lcov exists
+        run: |
+          ls -lah coverage
+          test -f coverage/lcov.info
+          head -n 5 coverage/lcov.info
+
+
       - name: SonarQube Cloud scan
         uses: SonarSource/sonarqube-scan-action@v6
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           projectBaseDir: front
+          args: >
+            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
+            -Dsonar.typescript.lcov.reportPaths=coverage/lcov.info
 
       - name: Build front Docker image
         run: docker build --progress=plain -t bobapp-front:ci .
