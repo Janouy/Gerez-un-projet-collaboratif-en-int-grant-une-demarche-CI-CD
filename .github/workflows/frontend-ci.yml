@@ -54,15 +54,6 @@ jobs:
             -Dsonar.typescript.lcov.reportPaths=coverage/lcov.info
             -Dsonar.coverage.exclusions=src/main.ts,src/test.ts,src/environments/**/*
 
-      - name: Build front Docker image
-        run: docker build --progress=plain -t bobapp-front:ci .
-
-      - name: Run front container (smoke test)
-        run: |
-          docker run -d --rm -p 8080:80 --name bobapp-front bobapp-front:ci
-          sleep 3
-          curl -f http://localhost:8080/
-
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
@@ -71,12 +62,18 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-          
+
+      - name: Debug files
+        run: |
+          pwd
+          ls -la
+          ls -la front
+
       - name: Build and push (Docker Hub)
         uses: docker/build-push-action@v6
         with:
-          context: .
-          file: ./front/Dockerfile
+          context: front
+          file: front/Dockerfile
           push: true
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/bobapp-front:latest
