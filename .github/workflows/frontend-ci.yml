@@ -67,7 +67,7 @@ jobs:
         run: |
           pwd
           ls -la
-          ls -la front
+          ls -la nginx.conf
 
       - name: Build and push (Docker Hub)
         uses: docker/build-push-action@v6
