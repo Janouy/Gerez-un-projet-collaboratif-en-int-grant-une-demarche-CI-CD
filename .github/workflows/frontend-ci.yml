@@ -60,12 +60,6 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Debug files
-        run: |
-          pwd
-          ls -la
-          ls -la nginx.conf
-
       - name: Build and push (Docker Hub)
         uses: docker/build-push-action@v6
         with:

@@ -35,7 +35,7 @@ jobs:
           name: backend-jacoco-report
           path: back/target/site/jacoco/**
 
-      - name: SonarQube Cloud scan (backend)
+      - name: SonarQube Cloud scan
         uses: SonarSource/sonarqube-scan-action@v6
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
@@ -53,7 +53,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and push back (Docker Hub)
+      - name: Build and push (Docker Hub)
         uses: docker/build-push-action@v6
         with:
           context: back
