@@ -4,6 +4,9 @@ on:
   workflow_dispatch:
   push:
     branches: "main"
+    paths:
+      - "front/**"
+      - ".github/workflows/frontend-ci.yml"
   pull_request:
     branches: "main"
     paths:
@@ -71,3 +74,15 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push (Docker Hub)
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/bobapp-front:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/bobapp-front:${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
