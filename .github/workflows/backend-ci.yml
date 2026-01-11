@@ -44,7 +44,7 @@ jobs:
           args: >
             -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
 
-            - name: Set up Docker Buildx
+      - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
       - name: Login to Docker Hub
@@ -64,4 +64,3 @@ jobs:
             ${{ secrets.DOCKERHUB_USERNAME }}/bobapp-back:${{ github.sha }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
-
