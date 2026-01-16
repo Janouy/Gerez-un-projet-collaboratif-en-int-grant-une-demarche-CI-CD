@@ -43,8 +43,6 @@ jobs:
         with:
           projectBaseDir: back
           args: >
-            -Dsonar.organization=janouy
-            -Dsonar.projectKey=janouy_bobapp-back
             -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
             -Dsonar.qualitygate.wait=true
 
