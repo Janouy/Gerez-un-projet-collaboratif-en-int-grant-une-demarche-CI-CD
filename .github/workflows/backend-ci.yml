@@ -35,14 +35,16 @@ jobs:
           name: backend-jacoco-report
           path: back/target/site/jacoco/**
 
-      - name: SonarQube Cloud scan
-        uses: SonarSource/sonarqube-scan-action@v6
+      - name: SonarCloud scan
+        uses: SonarSource/sonarcloud-github-action@v3
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           projectBaseDir: back
           args: >
             -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
+            -Dsonar.qualitygate.wait=true
+
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
