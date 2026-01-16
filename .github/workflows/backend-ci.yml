@@ -43,9 +43,7 @@ jobs:
         with:
           projectBaseDir: back
           args: >
-            -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
             -Dsonar.qualitygate.wait=true
-
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3

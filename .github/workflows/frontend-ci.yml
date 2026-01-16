@@ -48,9 +48,6 @@ jobs:
         with:
           projectBaseDir: front
           args: >
-            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
-            -Dsonar.typescript.lcov.reportPaths=coverage/lcov.info
-            -Dsonar.coverage.exclusions=src/main.ts,src/test.ts,src/environments/**/*
             -Dsonar.qualitygate.wait=true
 
 
