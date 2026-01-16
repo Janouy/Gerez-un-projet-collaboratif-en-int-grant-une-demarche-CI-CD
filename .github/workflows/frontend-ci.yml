@@ -40,8 +40,8 @@ jobs:
           name: frontend-coverage
           path: front/coverage/**
 
-      - name: SonarQube Cloud scan
-        uses: SonarSource/sonarqube-scan-action@v6
+      - name: SonarCloud scan
+        uses: SonarSource/sonarcloud-github-action@v3
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
@@ -50,6 +50,8 @@ jobs:
             -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
             -Dsonar.typescript.lcov.reportPaths=coverage/lcov.info
             -Dsonar.coverage.exclusions=src/main.ts,src/test.ts,src/environments/**/*
+            -Dsonar.qualitygate.wait=true
+
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
