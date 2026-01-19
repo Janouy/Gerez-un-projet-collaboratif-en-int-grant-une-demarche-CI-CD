@@ -41,7 +41,7 @@ Chaque workflow est déclenché :
 5. **Upload coverage report**  
    Publication du rapport de couverture en tant qu’artefact GitHub Actions.
 
-6. **SonarQube Cloud scan**  
+6. **SonarCloud scan**  
    Analyse de la qualité du code avec SonarCloud (coverage, bugs, code smells).
 
 7. **Set up Docker Buildx**  
@@ -69,7 +69,7 @@ Chaque workflow est déclenché :
 4. **Upload JaCoCo report**  
    Publication du rapport de couverture en tant qu’artefact GitHub Actions.
 
-5. **SonarQube Cloud scan**  
+5. **SonarCloud scan**  
    Analyse de la qualité du code backend avec SonarCloud.
 
 6. **Set up Docker Buildx**  
@@ -95,6 +95,9 @@ Afin de mesurer la qualité et la fiabilité du projet, les KPIs suivants ont é
 - **Critère : PASS**
 - Absence de bugs bloquants et de vulnérabilités critiques.
 - Dette technique maîtrisée garantissant un code propre et maintenable.
+
+### KPI 23– Durée du pipeline
+- **Durée max : 10mn
 
 ---
 
