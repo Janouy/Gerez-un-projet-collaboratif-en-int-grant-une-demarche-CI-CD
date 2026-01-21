@@ -109,12 +109,16 @@ Afin de mesurer la qualité et la fiabilité du projet, les KPIs suivants ont é
   - Couverture de code : **76,92 %**
   - Supérieure au seuil fixé.
   - Quality Gate SonarCloud validé.
+  - Présence de plusieurs *code smells*, notamment :
+    - Des propriétés doivent être marquées « readonly »
+    - Code commenté à supprimer
+    - Correction d’une tache asynchrone
   - Image Docker construite et publiée avec succès sur Docker Hub.
 
 - **Backend**
-  - Couverture de code : **≈ 32,8 %**
+  - Couverture de code : **32,8 %**
   - Inférieure au seuil fixé.
-  - Quality Gate SonarCloud non validé.
+  - Quality Gate SonarCloud validé.
   - Présence de plusieurs *code smells*, notamment :
     - Création répétée d’un objet `Random` (impact performance)
     - Usage discutable du pattern Singleton
@@ -122,7 +126,7 @@ Afin de mesurer la qualité et la fiabilité du projet, les KPIs suivants ont é
     - Nommage de champs peu explicite (`joke`, `response`)
     - Visibilité inadaptée de certains champs
     - Méthode de test vide non documentée
-
+  - Image Docker construite et publiée avec succès sur Docker Hub.
 ---
 
 ### Retours utilisateurs
